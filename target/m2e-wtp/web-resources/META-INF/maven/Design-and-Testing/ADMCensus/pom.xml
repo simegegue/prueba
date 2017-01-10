@@ -109,13 +109,53 @@
 			</executions>
 		</plugin>
 		<!--  2016/2017 -->
-		 <!--  Ignore/Execute plugin execution -->
- 
-	     
+		 <!-- Ignore/Execute plugin execution -->
+    <plugin>
+        <groupId>org.eclipse.m2e</groupId>
+        <artifactId>lifecycle-mapping</artifactId>
+        <version>1.0.0</version>
+        <configuration>
+            <lifecycleMappingMetadata>
+                <pluginExecutions>
+                    <!-- copy-dependency plugin -->
+                    <pluginExecution>
+                        <pluginExecutionFilter>
+                            
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <version>2.10</version>
+                            <id>copy-dependencies</id>
+	            			<phase>package</phase>
+                            <goals>
+                                <goal>copy-dependencies</goal>
+                            </goals>
+                            <manifest>
+	    						 <addClasspath>true</addClasspath>
+								 <classpathPrefix> dependencias/</classpathPrefix>
+								 <outputDirectory>${project.build.directory}/dependencias</outputDirectory>
+	           					 <includeScope> runtime </includeScope>
+							</manifest>
+                        </pluginExecutionFilter>
+                        <action>
+                            <ignore />
+                        </action>
+                    </pluginExecution>
+                </pluginExecutions>
+            </lifecycleMappingMetadata>
+        </configuration>
+    </plugin>
+		
+	      
 		</plugins>
 	</build>
 	<!-- 2016/2017 -->
-	
+	 <distributionManagement>
+	    <repository>
+	      <id> idRepo</id>
+	      <name> nombreRepo</name>
+	      <url> file:\\${project.build.directory} </url>
+	    </repository>
+		</distributionManagement>
 
 	<!-- Repositories to download components -->
 
